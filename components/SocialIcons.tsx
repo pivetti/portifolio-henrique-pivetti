@@ -1,6 +1,5 @@
 import { SiGithub, SiLinkedin, SiInstagram, SiDiscord } from "react-icons/si";
 import { Mail } from "lucide-react";
-import Bee from "@/components/icons/bee.svg";
 
 export function SocialIcons() {
   const baseStyle = `

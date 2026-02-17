@@ -1,4 +1,4 @@
-import { projects } from "@/data/projects";
+﻿import { projects } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
 import ContactForm from "@/components/ContactForm";
 import { SocialIcons } from "@/components/SocialIcons";
@@ -15,7 +15,7 @@ export default function Home() {
         </h1>
 
         <p className="text-zinc-400 max-w-3xl text-lg leading-relaxed">
-          Desenvolvedor Back-end & Acadêmico.
+          Desenvolvedor Back-end
         </p>
         <SocialIcons />
       </section>
@@ -41,6 +41,19 @@ export default function Home() {
             Programação, onde desenvolvo raciocínio lógico e habilidades em
             resolução de problemas voltadas para maratonas de programação.
           </p>
+        </div>
+      </section>
+
+      {/* PROJETOS */}
+      <section id="projetos" className="max-w-6xl mx-auto px-6 py-24 border-t border-zinc-800">
+        <h2 className="text-4xl font-bold mb-12">
+          Projetos
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard key={project.title} {...project} />
+          ))}
         </div>
       </section>
 
@@ -160,18 +173,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROJETOS */}
-      <section id="projetos" className="max-w-6xl mx-auto px-6 py-24 border-t border-zinc-800">
-        <h2 className="text-4xl font-bold mb-12">
-          Projetos
-        </h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
-        </div>
-      </section>
 
       {/* CONTATO */}
       <section id="contato" className="border-t border-zinc-800">
@@ -184,7 +185,7 @@ export default function Home() {
           </h2>
           <p className="text-zinc-400 max-w-2xl text-lg leading-relaxed">
             Estou disponível para novos projetos, colaborações e oportunidades.
-            Se você tem uma ideia ou precisa de ajuda técnica, envie uma mensagem.
+            Se você tem uma proposta, ideia ou precisa de ajuda técnica, entre em contato.
           </p>
         </div>
 
@@ -209,7 +210,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="text-sm text-zinc-500 mb-1">Email</p>
-                  <p className="text-white">henriquepivettidev@email.com</p>
+                  <p className="text-white">henriquepivettidev@gmail.com</p>
                 </div>
               </div>
 

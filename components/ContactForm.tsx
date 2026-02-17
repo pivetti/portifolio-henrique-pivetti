@@ -63,9 +63,16 @@ export default function ContactForm() {
       <textarea
         name="message"
         rows={6}
-        placeholder="Descreva seu projeto ou dúvida..."
+        placeholder="Digite sua mensagem..."
         required
         className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-200 focus:outline-none focus:border-white transition resize-none"
+      />
+
+      <input
+        type="text"
+        name="company"
+        className="hidden"
+        autoComplete="off"
       />
 
       <button
