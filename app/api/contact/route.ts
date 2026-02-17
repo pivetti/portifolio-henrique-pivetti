@@ -3,62 +3,21 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Mantém estado entre requisições (ambiente simples)
-const rateLimitMap = new Map<string, number[]>();
+// 🔒 Remove qualquer HTML
+function stripHtml(text: string) {
+  return text.replace(/<[^>]*>?/gm, "");
+}
 
-// 🔒 Função para escapar HTML (proteção contra XSS)
-function escapeHtml(text: string) {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+// 🔒 Bloqueia links
+function containsUrl(text: string) {
+  return /(https?:\/\/|www\.)/i.test(text);
 }
 
 export async function POST(req: Request) {
   try {
-    const forwardedFor = req.headers.get("x-forwarded-for");
-    const ip = forwardedFor
-      ? forwardedFor.split(",")[0]
-      : req.headers.get("x-real-ip") || "unknown";
-
-    const now = Date.now();
-    const windowTime = 60 * 1000; 
-    const maxRequests = 3;
-
-    if (!rateLimitMap.has(ip)) {
-      rateLimitMap.set(ip, []);
-    }
-
-    const timestamps = rateLimitMap.get(ip)!;
-
-    const filtered = timestamps.filter(
-      (time) => now - time < windowTime
-    );
-
-    if (filtered.length >= maxRequests) {
-      return NextResponse.json(
-        { error: "Muitas requisições. Tente novamente em um minuto." },
-        { status: 429 }
-      );
-    }
-
-    filtered.push(now);
-    rateLimitMap.set(ip, filtered);
-
     const body = await req.json();
-    const { name, email, subject, message, company } = body;
+    const { name, email, subject, message } = body;
 
-    // 🔒 Honeypot (campo invisível no form)
-    if (company) {
-      return NextResponse.json(
-        { error: "Spam detectado." },
-        { status: 400 }
-      );
-    }
-
-    // 🔒 Campos obrigatórios
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: "Campos obrigatórios não preenchidos." },
@@ -66,37 +25,19 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔒 Validação de email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // 🔒 Bloquear HTML (inclui <img>, <script>, etc)
+    if (/<[^>]*>/g.test(message)) {
       return NextResponse.json(
-        { error: "Email inválido." },
+        { error: "HTML não é permitido." },
         { status: 400 }
       );
     }
 
-    // 🔒 Bloquear links
-    const urlRegex = /(https?:\/\/|www\.)/i;
-    if (urlRegex.test(message)) {
-      return NextResponse.json(
-        { error: "Links não são permitidos." },
-        { status: 400 }
-      );
-    }
-
-    // 🔒 Tamanho mínimo
-    if (message.length < 10) {
-      return NextResponse.json(
-        { error: "Mensagem muito curta." },
-        { status: 400 }
-      );
-    }
-
-    // 🔒 Sanitização
-    const safeName = escapeHtml(name);
-    const safeEmail = escapeHtml(email);
-    const safeSubject = escapeHtml(subject);
-    const safeMessage = escapeHtml(message);
+    // 🔒 Sanitizar removendo qualquer HTML residual
+    const safeName = stripHtml(name);
+    const safeEmail = stripHtml(email);
+    const safeSubject = stripHtml(subject);
+    const safeMessage = stripHtml(message);
 
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
@@ -113,6 +54,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
 
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Erro ao enviar mensagem." },
       { status: 500 }
