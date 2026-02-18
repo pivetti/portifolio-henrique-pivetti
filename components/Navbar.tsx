@@ -17,7 +17,7 @@ export default function Navbar() {
         </h1>
 
         {/* Menu Desktop */}
-        <div className="hidden md:flex gap-6 text-zinc-400 text-sm">
+        <div className="hidden md:flex ml-auto gap-6 text-zinc-400 text-sm">  
           <a href="#inicio" className="hover:text-white transition">Início</a>
           <a href="#sobre" className="hover:text-white transition">Sobre</a>
           <a href="#projetos" className="hover:text-white transition">Projetos</a>
@@ -25,9 +25,8 @@ export default function Navbar() {
           <a href="#contato" className="hover:text-white transition">Contato</a>
         </div>
 
-        {/* Direita (Tema + Hamburguer) */}
+        {/* Direita */}
         <div className="flex items-center gap-4">
-          
 
           <button
             className="md:hidden text-white"

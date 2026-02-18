@@ -9,23 +9,28 @@ export default function Home() {
     <main className="pt-24">
 
       {/* INÍCIO */}
-      <section id="inicio" className="max-w-6xl mx-auto px-6 py-24">
-        <h1 className="text-4xl md:text-6xl font-bold mb-8">
-          Henrique Belgrovicz Pivetti
-        </h1>
+    <section
+      id="inicio"
+      className="max-w-6xl mx-auto px-6 py-24 text-center md:text-left"
+    >
+      <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        Henrique Belgrovicz Pivetti
+      </h1>
 
-        <p className="text-zinc-400 max-w-3xl text-lg leading-relaxed">
-          Desenvolvedor Back-end
-        </p>
-        <SocialIcons />
-      </section>
+      <p className="text-zinc-400 max-w-3xl text-base sm:text-lg leading-relaxed mx-auto md:mx-0">
+        Desenvolvedor Back-end
+      </p>
+
+      <SocialIcons />
+    </section>
+
 
       {/* SOBRE */}
       <section
         id="sobre"
         className="max-w-6xl mx-auto px-6 py-24 border-t border-zinc-800"
       >
-        <h2 className="text-4xl font-bold mb-8">Sobre</h2>
+        <h2 className="text-4xl font-bold mb-8">Sobre mim</h2>
 
         <div className="space-y-6 text-zinc-400 text-lg max-w-3xl leading-relaxed">
           <p>

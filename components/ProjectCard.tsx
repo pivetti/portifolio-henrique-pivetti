@@ -12,7 +12,14 @@ export default function ProjectCard({
   github,
 }: Project) {
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 flex flex-col justify-between hover:border-zinc-600 transition">
+    <div className="
+      bg-zinc-900 border border-zinc-800
+      rounded-xl p-6 flex flex-col justify-between
+      transition-all duration-300 ease-out
+      hover:border-zinc-600
+      hover:-translate-y-1
+      hover:shadow-lg hover:shadow-black/30
+    ">
       
       <div>
         <h3 className="text-xl font-semibold mb-3 text-white">
@@ -27,7 +34,11 @@ export default function ProjectCard({
           {technologies.map((tech) => (
             <span
               key={tech}
-              className="text-xs bg-zinc-800 px-3 py-1 rounded-full text-zinc-300"
+              className="
+                text-xs bg-zinc-800 px-3 py-1
+                rounded-full text-zinc-300
+                transition hover:bg-zinc-700
+              "
             >
               {tech}
             </span>
@@ -38,7 +49,16 @@ export default function ProjectCard({
       <a
         href={github}
         target="_blank"
-        className="bg-white text-black text-sm font-medium py-2 rounded-lg text-center hover:opacity-90 transition"
+        rel="noopener noreferrer"
+        className="
+          bg-white text-black text-sm font-medium
+          py-2 rounded-lg text-center
+          transition-all duration-200 ease-out
+          hover:bg-zinc-200
+          hover:-translate-y-1
+          hover:shadow-lg hover:shadow-white/20
+          active:scale-95 active:translate-y-0.5
+        "
       >
         Ver no GitHub
       </a>
