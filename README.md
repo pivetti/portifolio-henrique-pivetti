@@ -108,7 +108,7 @@ O deploy recomendado é na Vercel:
 
 - GitHub: [github.com/pivetti](https://github.com/pivetti)
 - LinkedIn: [linkedin.com/in/henriquepivetti](https://linkedin.com/in/henriquepivetti)
-
+- Email: henriquepivettidev@gmail.com
 ---
 
 Desenvolvido por **Henrique Belgrovicz Pivetti**.
